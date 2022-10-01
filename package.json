@@ -1,0 +1,25 @@
+{
+  "name": "tr8dor-core",
+  "version": "1.0.0",
+  "description": "Choose tickers, timeframes and indicators, then get real-time data from TradingView charts and create your client apps.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Makarov628/tr8dor-core.git"
+  },
+  "author": "Makarov628",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Makarov628/tr8dor-core/issues"
+  },
+  "homepage": "https://github.com/Makarov628/tr8dor-core#readme",
+  "devDependencies": {
+    "typescript": "^4.8.4"
+  },
+  "dependencies": {
+    "@mathieuc/tradingview": "^3.3.3"
+  }
+}
