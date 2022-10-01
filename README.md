@@ -1,4 +1,4 @@
-# tr8dor-core
+# antihamster-core
 
 This package based on ```@mathieuc/tradingview```
 
