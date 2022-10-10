@@ -1,5 +1,5 @@
-import Market from "../../domain/entities/market.entity";
-import { DomainEventEmitter, MarketEvents } from "../../domain/events/domainEventEmitter";
+import Market from "../../../domain/entities/market.entity"
+import { DomainEventEmitter, MarketEvents } from "../../../domain/events/domainEventEmitter"
 
 abstract class Monitor {
     

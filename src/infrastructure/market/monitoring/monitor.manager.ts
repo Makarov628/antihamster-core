@@ -1,4 +1,4 @@
-import Market from '../../domain/entities/market.entity'
+import Market from '../../../domain/entities/market.entity'
 import Monitor from './monitor'
 
 abstract class MonitorManager {
@@ -7,15 +7,15 @@ abstract class MonitorManager {
 
     protected abstract create(market: Market): Promise<Monitor>
 
-    protected get(marketId: number): Monitor | undefined {
+    protected get(marketId: string): Monitor | undefined {
         return this.monitors.find(monitor => monitor.market.id == marketId)
     }
 
-    monitorExists(marketId: number): boolean {
+    monitorExists(marketId: string): boolean {
         return this.monitors.some(monitor => monitor.market.id === marketId)
     }
 
-    monitorIsWorking(marketId: number): boolean {
+    monitorIsWorking(marketId: string): boolean {
         return this.monitors.some(monitor => 
             monitor.market.id == marketId 
             && monitor.isWorking()
@@ -42,7 +42,7 @@ abstract class MonitorManager {
         }
     }
 
-    async stopAndRemove(marketId: number): Promise<void> {
+    async stopAndRemove(marketId: string): Promise<void> {
         if (!this.monitorExists(marketId)) {
             return Promise.resolve()
         }
@@ -55,7 +55,7 @@ abstract class MonitorManager {
         this.monitors = this.monitors.filter(monitor => monitor.market.id != marketId)
     }
 
-    async restart(marketId: number): Promise<void> {
+    async restart(marketId: string): Promise<void> {
         const monitor = this.get(marketId)
         if (monitor?.isWorking()) {
             await monitor.stop()

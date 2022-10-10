@@ -1,12 +1,9 @@
 import Timeframe from "../enums/timeframe.enum";
 
 class Market {
-    
-    public get id(): number {
-        return this._id;
-    }
-    public set id(value: number) {
-        this._id = value;
+
+    public get id(): string {
+        return this._id == '' ? `${this.ticker}_${this.timeframe}` : this._id;
     }
 
     public get ticker(): string {
@@ -31,11 +28,13 @@ class Market {
     }
 
     constructor(
-        private _id: number,
+        private _id: string,
         private _ticker: string,
         private _name: string,
         private _timeframe: Timeframe
     ) {}
+
+
 }
 
 export default Market;

@@ -3,7 +3,7 @@ type TradeType = 'long' | 'short';
 class Trade {
     
     public get id(): string {
-        return `${this._marketId}_${this._price}_${this._date.getTime()}`;
+        return this._id === '' ? `${this._marketId}_${this._price}_${this._date.getTime()}`: this._id;
     }
     
     public get type(): TradeType {
@@ -42,6 +42,7 @@ class Trade {
     }
 
     constructor(
+        private _id: string,
         private _type: TradeType,
         private _lastTradeId: string | null,
         private _date: Date,

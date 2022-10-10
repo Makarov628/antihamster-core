@@ -1,3 +1,4 @@
+import { table } from "console";
 import Trade from "../../../domain/entities/trade.entity";
 import TradeRepository from "../../../domain/repositories/trade.repository";
 
@@ -9,39 +10,29 @@ class InMemoryTradeRepository extends TradeRepository {
         super()
     }
 
-    getCurrent(marketId: string): Promise<Trade | null> {
-        return new Promise((resolve, reject) => {
-            const trade = this._trades.filter(t => t.marketId == marketId).at(-1)
-            resolve(trade ?? null)
-        })
+    getCurrent(marketId: string): Promise<Trade | undefined> {
+        return Promise.resolve(this._trades.filter(t => t.marketId == marketId).at(-1))
     }
-    getLastAndCurrent(marketId: string): Promise<[Trade, Trade]> {
-        return new Promise((resolve, reject) => {
-           const [last, current] = this._trades.filter(t => t.marketId == marketId).slice(-2)
-           resolve([last ?? null, current ?? null])
-        })
+    getLastAndCurrent(marketId: string): Promise<[Trade | undefined, Trade | undefined]> {
+        const [last, current] = this._trades.filter(t => t.marketId == marketId).slice(-2)
+        return Promise.resolve([last, current])
     }
     getList(marketId: string): Promise<Trade[]> {
-        return new Promise((resolve, reject) => {
-            resolve(this._trades.filter(t => t.marketId == marketId))
-        })
+        return Promise.resolve(this._trades.filter(t => t.marketId == marketId))
     }
     append(newTrade: Trade): Promise<void> {
-        return new Promise((resolve, reject) => {
-            this._trades.push(newTrade)
-            resolve()
-        })
+        this._trades.push(newTrade)
+        return Promise.resolve()
     }
     appendBulk(trades: Trade[]): Promise<void> {
-        return new Promise((resolve, reject) => {
-            this._trades.push(...trades)
-            resolve();
-        })
+        this._trades.push(...trades)
+        return Promise.resolve()
     }
     delete(trade: Trade): Promise<void> {
-        throw new Error("Method not implemented.");
+        this._trades = this._trades.filter(t => trade.id === t.id)
+        return Promise.resolve()
     }
 
 }
 
-export default InMemoryTradeRepository;
+export { InMemoryTradeRepository };
