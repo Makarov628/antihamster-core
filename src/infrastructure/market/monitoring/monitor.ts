@@ -1,4 +1,5 @@
 import Market from "../../../domain/entities/market.entity"
+import Trade from "../../../domain/entities/trade.entity"
 import { DomainEventEmitter, MarketEvents } from "../../../domain/events/domainEventEmitter"
 
 abstract class Monitor {
@@ -6,6 +7,8 @@ abstract class Monitor {
     constructor(
         public market: Market
     ) {}
+
+    protected trades: Trade[] = []
 
     abstract start(): Promise<void>
     abstract isWorking(): boolean

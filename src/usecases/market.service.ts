@@ -1,13 +1,16 @@
 import Market from "../domain/entities/market.entity";
 import { ICreateMarketDto } from "../domain/repositories/dtos/market.dto";
 import MarketRepository from "../domain/repositories/market.repository";
+
 import MonitorManager from "../infrastructure/market/monitoring/monitor.manager";
+import { MarketSearch, IMarketSearchResult } from '../infrastructure/market/search'
 
 
 class MarketService {
     constructor(
         private marketRepository: MarketRepository,
-        private monitoringManager: MonitorManager
+        private monitoringManager: MonitorManager,
+        private marketSearch: MarketSearch
     ) { }
 
     async launchMonitoring(): Promise<void> {
@@ -31,6 +34,10 @@ class MarketService {
 
     async getMonitoringMarkets(): Promise<Market[]> {
         return await this.monitoringManager.getMonitoringMarkets()
+    }
+
+    async searchMarket(query: string): Promise<IMarketSearchResult[]> {
+        return await this.marketSearch.findByTicker(query)
     }
 
 }

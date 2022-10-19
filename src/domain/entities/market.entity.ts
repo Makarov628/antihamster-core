@@ -2,38 +2,28 @@ import Timeframe from "../enums/timeframe.enum";
 
 class Market {
 
-    public get id(): string {
-        return this._id == '' ? `${this.ticker}_${this.timeframe}` : this._id;
-    }
-
-    public get ticker(): string {
-        return this._ticker;
-    }
-    public set ticker(value: string) {
-        this._ticker = value;
-    }
-
-    public get name(): string {
-        return this._name;
-    }
-    public set name(value: string) {
-        this._name = value;
-    }
-
-    public get timeframe(): Timeframe {
-        return this._timeframe;
-    }
-    public set timeframe(value: Timeframe) {
-        this._timeframe = value;
-    }
+    public readonly id: string
+    public readonly ticker: string;
+    public readonly symbol: string;
+    public readonly exchangeName: string | null;
+    public readonly description: string;
+    public readonly timeframe: Timeframe;
 
     constructor(
-        private _id: string,
-        private _ticker: string,
-        private _name: string,
-        private _timeframe: Timeframe
-    ) {}
-
+        _id: string,
+        _ticker: string,
+        _symbol: string,
+        _exchangeName: string | null,
+        _description: string,
+        _timeframe: Timeframe
+    ) {
+        this.id = _id == '' ? `${_ticker}_${_timeframe}` : _id;
+        this.ticker = _ticker
+        this.symbol = _symbol
+        this.exchangeName = _exchangeName
+        this.description = _description
+        this.timeframe = _timeframe
+    }
 
 }
 

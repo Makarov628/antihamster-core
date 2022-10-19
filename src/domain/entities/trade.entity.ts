@@ -53,3 +53,4 @@ class Trade {
 }
 
 export default Trade
+export { Trade, TradeType }

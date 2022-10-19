@@ -1,4 +1,5 @@
 import { EventEmitter } from 'node:events';
+import Market from '../entities/market.entity';
 import Trade from '../entities/trade.entity';
 import { TypeSafeEventEmitter } from '../utils/typeSafeEventEmitter';
 
@@ -7,25 +8,14 @@ type ExchangeEvents = {
 }
 
 type MarketEvents = {
-    'new_trade': { last: Trade | undefined, new: Trade }
-    'test': string
-    'test2': number
+    'new_trade': { market: Market, trade: { last: Trade | null, new: Trade } }
+    'new_market': { market: Market }
 }
 
 type Events = MarketEvents & ExchangeEvents
 
 class DomainEventEmitter {
-    private static _instance: TypeSafeEventEmitter<Events>;
-
-    private constructor() { }
-
-    public static get instance(): TypeSafeEventEmitter<Events> {
-        if (!DomainEventEmitter._instance) {
-            DomainEventEmitter._instance = new EventEmitter();
-        }
-
-        return DomainEventEmitter.instance;
-    }
+    public static readonly instance: TypeSafeEventEmitter<Events> = new EventEmitter();
 }
 
 export { DomainEventEmitter, MarketEvents, ExchangeEvents }

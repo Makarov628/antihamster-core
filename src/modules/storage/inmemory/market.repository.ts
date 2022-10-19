@@ -23,7 +23,14 @@ class InMemoryMarketRepository extends MarketRepository {
         return Promise.resolve(this._markets.find(market => market.ticker === ticker && market.timeframe === timeframe))
     }
     createAndAppend(marketDto: ICreateMarketDto): Promise<Market> {
-        const newMarket = new Market('', marketDto.ticker, marketDto.name, marketDto.timeframe)
+        const newMarket = new Market(
+            '', 
+            marketDto.ticker, 
+            marketDto.symbol,
+            marketDto.exchangeName, 
+            marketDto.description, 
+            marketDto.timeframe
+        )
         this._markets.push(newMarket)
         return Promise.resolve(newMarket)
     }

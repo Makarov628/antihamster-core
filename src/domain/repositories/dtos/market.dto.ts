@@ -2,7 +2,9 @@ import Timeframe from "../../enums/timeframe.enum";
 
 interface ICreateMarketDto {
     ticker: string,
-    name: string,
+    symbol: string,
+    exchangeName: string | null,
+    description: string,
     timeframe: Timeframe
 }
 
