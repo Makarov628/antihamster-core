@@ -1,53 +1,43 @@
-import Timeframe from "./domain/enums/timeframe.enum";
-import { DomainEventEmitter } from "./domain/events/domainEventEmitter";
-import { configureDefault } from "./startup";
+import MonitorManager from "./infrastructure/market/monitoring/monitor.manager"
+import { MarketSearch } from "./infrastructure/market/search"
 
-const app = configureDefault()
-
-const start = async () => {
-
-
-    DomainEventEmitter.instance.on('new_market', (args) => {
-        console.log(`${args.market.ticker} on '${args.market.timeframe}' timeframe is connected!`)
-    })
-
-    DomainEventEmitter.instance.on('new_trade', (args) => {
-        console.log()
-        console.log(`${args.market.ticker} on ${args.market.timeframe}`)
-        console.log(`New Trade: ${args.trade.new.type}_${args.trade.new.price}`)
-        console.log(`Old Trade: ${args.trade.last?.type}_${args.trade.last?.price}`)
-    })
+import { InMemoryMarketRepository } from "./modules/storage/inmemory/market.repository"
+import { TradingViewMarketSearch } from './modules/market/search/tradingview'
+import { TradingViewRealtimeMonitorManager } from './modules/market/monitoring/tradingview-realtime/monitor.manager'
 
 
-    const findedMarkets = await app.market.searchMarket('BINANCE:')
+import { MarketService } from "./usecases/market.service"
+import MarketRepository from "./domain/repositories/market.repository"
+import TradeRepository from "./domain/repositories/trade.repository"
+import { DomainEventEmitter } from "./domain/events/domainEventEmitter"
 
-    let counter = 0
-    for (const timeframe of Object.values(Timeframe).filter(v => v != Timeframe["M"] &&  v != Timeframe["W"] &&  v != Timeframe["D"])) {
-        for (let i = 0; i < findedMarkets.length; i++) {
-            const findedMarket = findedMarkets[i];
-            try {
-                await app.market.addToMonitoring({
-                    ticker: findedMarket.ticker,
-                    symbol: findedMarket.symbol,
-                    description: findedMarket.description,
-                    exchangeName: findedMarket.exchangeName,
-                    timeframe: timeframe
-                })
-                counter += 1
-            } catch (error) {
-                console.log(error)
-            }
-        }
-    }
-    console.log(counter)
-
-
-
-
-
+interface IAntihamsterApp {
+    market: MarketService
+}
+interface IConfigureOptions {
+    antihamsterId: string,
+    marketRepository?: MarketRepository,
+    tradeRepository?: TradeRepository,
+    marketMonitorManager?: MonitorManager,
+    marketSearch?: MarketSearch
 }
 
-start()
+const configure = (options: IConfigureOptions): IAntihamsterApp => {
 
-// TODO: 
-// 
+    if (!options.antihamsterId) 
+        throw new Error('You need Antihamster strategy id for TradingView')
+
+    const marketService = new MarketService(
+        options.marketRepository ?? new InMemoryMarketRepository(),
+        options.marketMonitorManager ?? new TradingViewRealtimeMonitorManager(options.antihamsterId),
+        options.marketSearch ?? new TradingViewMarketSearch()
+    )
+
+    return {
+        market: marketService
+    }
+}
+
+export { 
+    configure
+}
