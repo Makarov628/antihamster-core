@@ -2,7 +2,8 @@
   "name": "antihamster-core",
   "version": "1.0.0",
   "description": "Choose tickers, timeframes and indicators, then get real-time data from TradingView charts and create your client apps.",
-  "main": "./dist/index.js",
+  "main": "./lib/index.js",
+  "types": "./lib/index.d.ts",
   "scripts": {
     "debug": "nodemon ./src/index.ts",
     "test": "echo \"Error: no test specified\" && exit 1"

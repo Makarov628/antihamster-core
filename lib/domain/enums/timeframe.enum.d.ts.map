@@ -1,0 +1,1 @@
+{"version":3,"file":"timeframe.enum.d.ts","sourceRoot":"","sources":["../../../src/domain/enums/timeframe.enum.ts"],"names":[],"mappings":"AACA,aAAK,SAAS;IACV,GAAG,MAAQ;IACX,IAAI,MAAO;IACX,IAAI,MAAO;IACX,KAAK,OAAO;IACZ,KAAK,OAAO;IACZ,KAAK,OAAO;IACZ,GAAG,OAAS;IACZ,IAAI,QAAS;IACb,IAAI,QAAS;IACb,IAAI,QAAS;IACb,GAAG,OAAS;IACZ,GAAG,OAAS;IACZ,GAAG,OAAS;CACf;AAED,eAAe,SAAS,CAAC"}
