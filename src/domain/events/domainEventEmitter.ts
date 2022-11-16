@@ -1,4 +1,4 @@
-import { EventEmitter } from 'node:events';
+import { EventEmitter } from 'events';
 import Market from '../entities/market.entity';
 import Trade from '../entities/trade.entity';
 import { TypeSafeEventEmitter } from '../utils/typeSafeEventEmitter';
