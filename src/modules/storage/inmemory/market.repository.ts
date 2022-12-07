@@ -29,7 +29,8 @@ class InMemoryMarketRepository extends MarketRepository {
             marketDto.symbol,
             marketDto.exchangeName, 
             marketDto.description, 
-            marketDto.timeframe
+            marketDto.timeframe,
+            marketDto.risk
         )
         this._markets.push(newMarket)
         return Promise.resolve(newMarket)

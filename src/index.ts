@@ -16,8 +16,10 @@ interface IAntihamsterApp {
 }
 interface IConfigureOptions {
     antihamsterId: string,
+
     marketRepository?: MarketRepository,
     tradeRepository?: TradeRepository,
+    
     marketMonitorManager?: MonitorManager,
     marketSearch?: MarketSearch
 }

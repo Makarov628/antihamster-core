@@ -6,6 +6,7 @@ abstract class MarketRepository {
     abstract getList(): Promise<Market[]>;
     abstract get(marketId: string): Promise<Market | undefined>;
     abstract getBy(ticker: string, timeframe: Timeframe): Promise<Market | undefined>;
+    
     abstract createAndAppend(market: ICreateMarketDto): Promise<Market>;
     abstract delete(marketId: string): Promise<void>;
 }
