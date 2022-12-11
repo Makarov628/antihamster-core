@@ -4,10 +4,10 @@ class User {
 
     public readonly id: string;
     public readonly nickname: string;
-    public readonly firstName: string | null;
-    public readonly lastName: string | null;
-    public readonly avatarUrl: URL | null;
-    public readonly role: Role;
+    public firstName: string | null;
+    public lastName: string | null;
+    public avatarUrl: URL | null;
+    public role: Role;
 
     constructor(
         _id: string,

@@ -1,6 +1,5 @@
 import Market from '../../../../domain/entities/market.entity';
 import Trade, { TradeType } from '../../../../domain/entities/trade.entity';
-import Timeframe from '../../../../domain/enums/timeframe.enum';
 import Monitor from '../../../../infrastructure/market/monitoring/monitor'
 
 const TradingView = require('@mathieuc/tradingview')
